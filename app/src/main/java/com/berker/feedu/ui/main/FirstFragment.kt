@@ -1,4 +1,4 @@
-package com.berker.feedu
+package com.berker.feedu.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.berker.feedu.R
 import com.berker.feedu.databinding.FragmentFirstBinding
 
 /**
