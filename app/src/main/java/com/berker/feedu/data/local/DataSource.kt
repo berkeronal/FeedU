@@ -3,11 +3,11 @@ package com.berker.feedu.data.local
 
 import android.os.Handler
 import android.os.Looper
+import com.berker.feedu.domain.model.Person
 import kotlin.math.min
 import kotlin.random.Random
 
 
-data class Person(val id: Int, val fullName: String)
 
 data class FetchResponse(val people: List<Person>, val next: String?)
 
@@ -44,7 +44,7 @@ class DataSource {
         initializeData()
     }
 
-    fun fetch(next: String?, completionHandler: FetchCompletionHandler) {
+    public fun fetch(next: String?, completionHandler: FetchCompletionHandler) {
         val processResult = processRequest(next)
 
         Handler(Looper.getMainLooper()).postDelayed({

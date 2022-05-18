@@ -14,3 +14,11 @@ plugins {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    hiltVersion = '2.40.1'
+    hiltCompilerVersion = '2.37'
+    hiltAndroidxCompilerVersion = '1.0.0'
+    hiltLifecycleVMVersion = '1.0.0-alpha03'
+    pagingVersion = '3.1.0'
+}

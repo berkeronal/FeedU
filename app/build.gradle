@@ -36,13 +36,6 @@ android {
     }
 }
 
-ext {
-    hiltVersion = '2.40.1'
-    hiltCompilerVersion = '2.37'
-    hiltAndroidxCompilerVersion = '1.0.0'
-    hiltLifecycleVMVersion = '1.0.0-alpha03'
-}
-
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -60,4 +53,7 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hiltCompilerVersion"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltLifecycleVMVersion"
     kapt "androidx.hilt:hilt-compiler:$hiltAndroidxCompilerVersion"
+
+    //paging
+    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
 }
