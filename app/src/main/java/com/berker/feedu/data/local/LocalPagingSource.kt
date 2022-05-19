@@ -6,7 +6,7 @@ import com.berker.feedu.util.Resource
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-private const val STARTING_INDEX = 1
+private const val STARTING_INDEX = 0
 private const val DEFAULT_TIMEOUT = 3000L
 
 class LocalPagingSource(
