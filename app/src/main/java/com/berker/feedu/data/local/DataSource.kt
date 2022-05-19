@@ -48,7 +48,7 @@ class DataSource {
         val processResult = processRequest(next)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            completionHandler(processResult.fetchResponse, processResult.fetchError)
+            completionHandler.invoke(processResult.fetchResponse, processResult.fetchError)
         }, (processResult.waitTime * 1000).toLong())
     }
 

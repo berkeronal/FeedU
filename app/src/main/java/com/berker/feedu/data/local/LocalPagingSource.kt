@@ -3,48 +3,59 @@ package com.berker.feedu.data.local
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.berker.feedu.domain.model.Person
+import com.berker.feedu.util.Resource
 import java.io.IOException
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 private const val STARTING_INDEX = 1
+private const val DEFAULT_TIMEOUT = 3000L
 
-class LocalPagingSource : PagingSource<Int, Person>() {
+class LocalPagingSource(
+    private val dataSource: DataSource
+) : PagingSource<Int, Person>() {
+
+    private suspend fun getDataFromDataSource(position: Int): Resource<FetchResponse> {
+        return suspendCoroutine<Resource<FetchResponse>> { cont ->
+            dataSource.fetch(
+                next = position.toString(),
+                completionHandler = { fetchResponse, fetchError ->
+                    fetchResponse?.let {
+                        println(it.people)
+                        cont.resume(
+                            Resource.Success(
+                                data = it
+                            )
+                        )
+                    } ?: fetchError?.let {
+                        println(fetchError.errorDescription)
+                        cont.resume(Resource.Error(it.errorDescription))
+                    }
+                }
+            )
+        }
+    }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Person> {
         val position = params.key ?: STARTING_INDEX
 
-        var isSuccess = false
-        var fetchedResponse: FetchResponse? = null
-        var fetchedError: FetchError? = null
-
         return try {
 
-            val asd = suspendCoroutine<FetchResponse> {cont->
-                DataSource().fetch(
-                    next = position.toString(),
-                    completionHandler = { fetchResponse, fetchError ->
-                        fetchResponse?.let {
-                            println(it.people)
-                            fetchedResponse = it
-                            isSuccess = true
-                            cont.resume(it)
-                        } ?: fetchError?.let {
-                            println(fetchError.errorDescription)
-                        }
-
-                    }
-                )
+            when (val response = getDataFromDataSource(position)) {
+                is Resource.Error -> {
+                    LoadResult.Error(IOException(response.message))
+                }
+                is Resource.Success -> {
+                    LoadResult.Page(
+                        data = response.data.people,
+                        prevKey = if (position == STARTING_INDEX) null else position - 1,
+                        nextKey = response.data.next?.toInt()
+                    )
+                }
             }
-            return LoadResult.Page(
-                data = fetchedResponse?.people ?: emptyList(),
-                prevKey = if (position == STARTING_INDEX) null else position - 1,
-                nextKey = fetchedResponse?.next?.toInt()
-            )
-
 
         } catch (exception: IOException) {
-            return LoadResult.Error(exception)
+            LoadResult.Error(exception)
         }
 
     }

@@ -1,4 +1,4 @@
-package com.berker.feedu.ui.main
+package com.berker.feedu.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.berker.feedu.databinding.ItemRcBinding
 import com.berker.feedu.domain.model.Person
+import com.berker.feedu.ui.main.util.FeedListItemUiState
 
 class FeedAdapter : PagingDataAdapter<Person, FeedAdapter.FeedViewHolder>(FeedComparator) {
 
@@ -14,7 +15,7 @@ class FeedAdapter : PagingDataAdapter<Person, FeedAdapter.FeedViewHolder>(FeedCo
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Person) = with(binding) {
-            person = item
+            feedListItemUiState = FeedListItemUiState(person = item)
         }
     }
 

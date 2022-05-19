@@ -16,6 +16,8 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
 
     abstract fun initUi()
 
+    open fun initReceivers(){}
+
     @LayoutRes
     abstract fun layoutId(): Int
 
@@ -34,6 +36,7 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
+        initReceivers()
         initUi()
 
     }

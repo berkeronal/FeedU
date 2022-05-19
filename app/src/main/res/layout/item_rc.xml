@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="person"
-            type="com.berker.feedu.domain.model.Person" />
+            name="feedListItemUiState"
+            type="com.berker.feedu.ui.main.util.FeedListItemUiState" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,10 +14,12 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:text="@{String.valueOf(person.id)}"
-            android:textColor="@color/black"/>
-
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="4dp"
+            android:text="@{feedListItemUiState.name}"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
     </FrameLayout>
 </layout>

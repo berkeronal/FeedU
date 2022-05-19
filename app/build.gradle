@@ -56,4 +56,6 @@ dependencies {
 
     //paging
     implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
+
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }
