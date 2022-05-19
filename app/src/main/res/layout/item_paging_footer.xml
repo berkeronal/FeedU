@@ -22,23 +22,23 @@
             android:layout_gravity="center"
             android:visibility="@{footerUiState.loadingVisibility}" />
 
-        <Button
-            android:id="@+id/btnRetry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Rerty"
-            android:visibility="@{footerUiState.errorVisibility}" />
-
         <TextView
             android:id="@+id/tvError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="4dp"
-            android:text="@{footerUiState.getErrorMessage(context)}"
+            android:text="@{footerUiState.errorMessage}"
             android:visibility="@{footerUiState.errorVisibility}"
             tools:text="Internet Connection Failed" />
+
+        <Button
+            android:id="@+id/btnRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Retry"
+            android:visibility="@{footerUiState.errorVisibility}" />
 
     </LinearLayout>
 </layout>

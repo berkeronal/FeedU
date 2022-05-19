@@ -3,11 +3,11 @@ package com.berker.feedu.data.local
 
 import android.os.Handler
 import android.os.Looper
-import com.berker.feedu.domain.model.Person
 import kotlin.math.min
 import kotlin.random.Random
 
 
+data class Person(val id: Int, val fullName: String)
 
 data class FetchResponse(val people: List<Person>, val next: String?)
 
@@ -35,7 +35,7 @@ class DataSource {
             0.0..0.3 // lower bound must be >= 0.0, upper bound must be > lower bound
         val highWaitTimeRange: ClosedRange<Double> =
             1.0..2.0 // lower bound must be >= 0.0, upper bound must be > lower bound
-        const val errorProbability = 0.05 // must be > 0.0
+        const val errorProbability = 0.25 // must be > 0.0
         const val backendBugTriggerProbability = 0.05 // must be > 0.0
         const val emptyFirstResultsProbability = 0.1 // must be > 0.0
     }
@@ -44,11 +44,11 @@ class DataSource {
         initializeData()
     }
 
-    public fun fetch(next: String?, completionHandler: FetchCompletionHandler) {
+    fun fetch(next: String?, completionHandler: FetchCompletionHandler) {
         val processResult = processRequest(next)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            completionHandler.invoke(processResult.fetchResponse, processResult.fetchError)
+            completionHandler(processResult.fetchResponse, processResult.fetchError)
         }, (processResult.waitTime * 1000).toLong())
     }
 

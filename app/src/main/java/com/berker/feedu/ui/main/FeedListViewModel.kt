@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
-import com.berker.feedu.domain.model.Person
+import com.berker.feedu.data.local.Person
 import com.berker.feedu.domain.usecase.FeedUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FeedListViewModel @Inject constructor(
-    val feedUseCases: FeedUseCases
+    private val feedUseCases: FeedUseCases
 ) : ViewModel() {
 
     private lateinit var _feedFlow: Flow<PagingData<Person>>
@@ -29,7 +29,6 @@ class FeedListViewModel @Inject constructor(
                 if (personMap.contains(person.id)) false else personMap.add(person.id)
             }
         }.cachedIn(viewModelScope)
-
     }
 
 }

@@ -2,20 +2,27 @@ package com.berker.feedu.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.berker.feedu.R
+import com.berker.feedu.data.local.Person
 import com.berker.feedu.databinding.ItemRcBinding
-import com.berker.feedu.domain.model.Person
 import com.berker.feedu.ui.main.util.FeedListItemUiState
+import com.berker.feedu.util.executeWithAction
+import javax.inject.Inject
 
-class FeedAdapter : PagingDataAdapter<Person, FeedAdapter.FeedViewHolder>(FeedComparator) {
+class FeedAdapter @Inject constructor() :
+    PagingDataAdapter<Person, FeedAdapter.FeedViewHolder>(FeedComparator) {
 
     inner class FeedViewHolder(private val binding: ItemRcBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Person) = with(binding) {
-            feedListItemUiState = FeedListItemUiState(person = item)
+            executeWithAction {
+                feedListItemUiState =  FeedListItemUiState(person = item)
+            }
         }
     }
 
@@ -33,8 +40,11 @@ class FeedAdapter : PagingDataAdapter<Person, FeedAdapter.FeedViewHolder>(FeedCo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder =
         FeedViewHolder(
-            ItemRcBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
+            DataBindingUtil.inflate<ItemRcBinding>(
+                LayoutInflater.from(parent.context),
+                R.layout.item_rc,
+                parent,
+                false
             )
         )
 }

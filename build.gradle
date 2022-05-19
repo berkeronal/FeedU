@@ -21,4 +21,5 @@ ext {
     hiltAndroidxCompilerVersion = '1.0.0'
     hiltLifecycleVMVersion = '1.0.0-alpha03'
     pagingVersion = '3.1.0'
+    lifecycle_ktx_version = "2.4.0"
 }

@@ -5,7 +5,6 @@ import com.berker.feedu.ui.base.BaseUiState
 
 class FeedListUiState(
     private val loadState: LoadState,
-    private val errorMessage: String =""
 ) : BaseUiState() {
 
     fun getProgressBarVisibility() = getViewVisibility(isVisible = loadState is LoadState.Loading)

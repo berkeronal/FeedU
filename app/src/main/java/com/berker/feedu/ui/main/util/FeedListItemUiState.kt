@@ -1,6 +1,6 @@
 package com.berker.feedu.ui.main.util
 
-import com.berker.feedu.domain.model.Person
+import com.berker.feedu.data.local.Person
 import com.berker.feedu.ui.base.BaseUiState
 
 data class FeedListItemUiState(
