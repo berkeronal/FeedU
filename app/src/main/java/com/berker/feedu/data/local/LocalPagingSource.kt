@@ -50,14 +50,12 @@ class LocalPagingSource(
                 next = position.toString(),
                 completionHandler = { fetchResponse, fetchError ->
                     fetchResponse?.let {
-                        println(it.people)
                         cont.resume(
                             Resource.Success(
                                 data = it
                             )
                         )
                     } ?: fetchError?.let {
-                        println(fetchError.errorDescription)
                         cont.resume(Resource.Error(it.errorDescription))
                     }
                 }
